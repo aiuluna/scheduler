@@ -1,0 +1,22 @@
+{
+  "name": "scheduler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aiuluna/scheduler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aiuluna/scheduler/issues"
+  },
+  "homepage": "https://github.com/aiuluna/scheduler#readme",
+  "devDependencies": {
+    "@types/node": "^20.3.3"
+  }
+}
