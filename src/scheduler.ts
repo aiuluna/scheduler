@@ -19,9 +19,9 @@ import {
 } from './constants'
 import { getCurrentTime, localClearTimeout, localSetImmediate, localSetTimeout, startTimeRef } from './localTimerFunctions';
 
-import { shouldYeild } from './shouldYeild'
+import { shouldYield } from './shouldYeild'
 
-import { TflushWork, TimeoutID, Heap, Task, Callback } from './standard.types';
+import { TflushWork, TimeoutID, Heap, Task, FrameCallbackType } from './standard.types';
 
 const taskQueue: Heap<Task> = [];
 const timerQueue: Heap<Task> = [];
@@ -122,7 +122,7 @@ function workLoop(hasTimeRemaining: boolean, initialTime: number): boolean {
   currentTask = peek(taskQueue);
   while (currentTask) {
     // 退出循环的条件
-    if (currentTask.expirationTime > currentTime && (!hasTimeRemaining || shouldYeild())) {
+    if (currentTask.expirationTime > currentTime && (!hasTimeRemaining || shouldYield())) {
       break
     }
 
@@ -234,8 +234,8 @@ export function cancelHostTimeout() {
   taskTimeoutID = -1;
 }
 
-export const scheduledCallback:
-  (priorityLevel: PriorityLevel, callback: Callback, options?: { delay: number }) => Task
+export const scheduleCallback:
+  (priorityLevel: PriorityLevel, callback: FrameCallbackType, options?: { delay: number }) => Task
   = (priorityLevel, callback, options) => {
 
     const currentTime = getCurrentTime();
@@ -299,3 +299,12 @@ export const scheduledCallback:
 
     return newTask;
   }
+
+
+export const cancelCallback = (task: Task) => {
+  task.callback = null;
+}
+
+export const getFirstCallbackNode: () => Task | null = () => {
+  return peek(taskQueue)
+}

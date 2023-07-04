@@ -4,7 +4,7 @@ import { isInputPending } from './isInputPending'
 const frameYieldMs = 5;
 
 
-export function shouldYeild(): boolean {
+export function shouldYield(): boolean {
   const timeElapsed = getCurrentTime() - startTimeRef.current;
   return (isInputPending() || timeElapsed >= frameYieldMs) ? true : false;
 }
